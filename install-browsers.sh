@@ -1,31 +1,19 @@
 #!/usr/bin/bash
 
-declare -A chrome_versions
 
 # Enter the list of browsers to be downloaded
 ### Using Chromium as documented here - https://www.chromium.org/getting-involved/download-chromium
-chrome_versions=( ['88.0.4324.150']='827102' )
-chrome_drivers=( "88.0.4324.96" )
+chrome="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1084057%2Fchrome-linux.zip?generation=1671147619432646&alt=media"
+driver="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1084057%2Fchromedriver_linux64.zip?generation=1671147624762446&alt=media"
 
 
-# Download Chrome
-for br in "${!chrome_versions[@]}"
-do
-    echo "Downloading Chrome version $br"
-    mkdir -p "/opt/chrome/$br"
-    curl -Lo "/opt/chrome/$br/chrome-linux.zip" "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F${chrome_versions[$br]}%2Fchrome-linux.zip?alt=media"
-    unzip -q "/opt/chrome/$br/chrome-linux.zip" -d "/opt/chrome/$br/"
-    mv /opt/chrome/$br/chrome-linux/* /opt/chrome/$br/
-    rm -rf /opt/chrome/$br/chrome-linux "/opt/chrome/$br/chrome-linux.zip"
-done
+mkdir -p "/opt/chrome"
+curl -Lo /opt/chrome/chrome-linux.zip "$chrome"
+unzip -q "/opt/chrome/chrome-linux.zip" -d "/opt/chrome"
+rm /opt/chrome/chrome-linux.zip
 
-# Download Chromedriver
-for dr in ${chrome_drivers[@]}
-do
-    echo "Downloading Chromedriver version $dr"
-    mkdir -p "/opt/chromedriver/$dr"
-    curl -Lo "/opt/chromedriver/$dr/chromedriver_linux64.zip" "https://chromedriver.storage.googleapis.com/$dr/chromedriver_linux64.zip"
-    unzip -q "/opt/chromedriver/$dr/chromedriver_linux64.zip" -d "/opt/chromedriver/$dr/"
-    chmod +x "/opt/chromedriver/$dr/chromedriver"
-    rm -rf "/opt/chromedriver/$dr/chromedriver_linux64.zip"
-done
+mkdir -p "/opt/driver"
+curl -Lo /opt/driver/chrome-driver.zip "$driver"
+unzip -q "/opt/driver/chrome-driver.zip" -d /opt/driver
+mv /opt/driver/chromedriver_linux64/chromedriver /opt/driver/
+rm -rf /opt/chrome-driver/chrome-driver.zip /opt/chrome-driver/chromedriver_linux64

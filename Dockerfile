@@ -9,25 +9,27 @@ RUN yum install xz atk cups-libs gtk3 libXcomposite alsa-lib tar \
 
 FROM lambda-base as dependencies-build
 
-COPY requirements.txt /tmp/
 COPY install-browsers.sh /tmp/
 
 # Install Browsers
 RUN /usr/bin/bash /tmp/install-browsers.sh
 
+# Remove not needed packages
+RUN yum remove xz tar unzip bzip2 -y
+
 
 FROM dependencies-build as py-build
 # Install Python dependencies for function
+COPY requirements.txt /tmp/
 RUN pip install --upgrade pip -q
 RUN pip install -r /tmp/requirements.txt -q
 
-# Remove not needed packages
-RUN yum remove xz tar unzip bzip2 -y
 
 #
 # Final image with code and dependencies
 FROM py-build
 
+COPY hosts /etc/hosts
+
 # # Copy function code
 COPY app.py /var/task/
-
