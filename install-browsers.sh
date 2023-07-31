@@ -3,8 +3,9 @@
 
 # Enter the list of browsers to be downloaded
 ### Using Chromium as documented here - https://www.chromium.org/getting-involved/download-chromium
-chrome="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1084057%2Fchrome-linux.zip?generation=1671147619432646&alt=media"
-driver="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1084057%2Fchromedriver_linux64.zip?generation=1671147624762446&alt=media"
+### https://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html
+chrome="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1116103%2Fchrome-linux.zip?generation=1678562407182025&alt=media"
+driver="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1116103%2Fchromedriver_linux64.zip?generation=1678562412615699&alt=media"
 
 
 mkdir -p "/opt/chrome"
